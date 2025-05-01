@@ -1,3 +1,8 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
+
 terraform {
   required_version = ">= 1.3.0" # Added to satisfy terraform_required_version rule
   required_providers {
@@ -14,10 +19,6 @@ terraform {
     encrypt = true
     dynamodb_table = "terraform-state-locks"
   }
-}
-
-provider "aws" {
-  region = "us-east-1"
 }
 
 data "aws_caller_identity" "current" {}
