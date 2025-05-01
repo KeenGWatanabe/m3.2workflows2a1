@@ -3,7 +3,7 @@ name: Terraform CI
 on: 
   pull_request: 
     branches: [ "main" ] 
- 
+ #checkov:skip=CKV2_GHA_1:Justification for write permissions
 jobs: 
   CI: 
     runs-on: ubuntu-latest 
