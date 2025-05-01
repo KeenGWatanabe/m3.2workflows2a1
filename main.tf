@@ -2,7 +2,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
-
+plugin "terraform" {
+  enabled = true
+  preset  = "recommended"
+}
 terraform {
   required_version = ">= 1.3.0" # Added to satisfy terraform_required_version rule
   required_providers {
@@ -24,8 +27,8 @@ terraform {
 data "aws_caller_identity" "current" {}
 
 locals {
-  name_prefix = "${split("/", data.aws_caller_identity.current.arn)[1]}" # Removed deprecated interpolation
-  account_id  = "${data.aws_caller_identity.current.account_id}"
+  name_prefix = split("/", data.aws_caller_identity.current.arn)[1] # Removed deprecated interpolation
+  account_id  = data.aws_caller_identity.current.account_id
 }
 
 resource "aws_s3_bucket" "s3_tf" {
