@@ -13,10 +13,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "ce9g4.tfstate-backend.com"
-    key    = "terraform.tfstate"
-    region = "us-east-1"
-    encrypt = true
+    bucket         = "ce9g4.tfstate-backend.com"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
     dynamodb_table = "terraform-state-locks"
   }
 }
@@ -24,8 +24,8 @@ terraform {
 data "aws_caller_identity" "current" {}
 
 locals {
-  name_prefix = "${split("/", data.aws_caller_identity.current.arn)[1]}" # Removed deprecated interpolation
-  account_id  = "${data.aws_caller_identity.current.account_id}"
+  name_prefix = split("/", data.aws_caller_identity.current.arn)[1] # Removed deprecated interpolation
+  account_id  = data.aws_caller_identity.current.account_id
 }
 
 resource "aws_s3_bucket" "s3_tf" {
